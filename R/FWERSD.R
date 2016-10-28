@@ -8,6 +8,11 @@
 #' @param p.set a list of numeric vectors, where each vector is the vector of all attainable p-values containing the available p-value for the corresponding hypothesis.
 #' @return
 #' A numeric vector of the adjusted p-values (of the same length as \eqn{p}).
+#' @author Yalin Zhu
+#' @references
+#' Holm, S. (1979).
+#' A simple sequentially rejective multiple test procedure.
+#' \emph{Scandinavian Journal of Statistics}, \strong{6}: 65-70.
 #' @examples
 #' p <- c(pbinom(1,8,0.5),pbinom(1,5,0.75),pbinom(1,6,0.6))
 #' p.set <-list(pbinom(0:8,8,0.5),pbinom(0:5,5,0.75),pbinom(0:6,6,0.6))
@@ -18,12 +23,12 @@ MHolm.p.adjust <- function(p,p.set){
   o <- order(p); ro <- order(o); m <- length(p)
   sort.p <- p[o]; sort.p.set <- p.set[o]
   adjP <- numeric(m); pCDF <- matrix(NA,m,m)
-  for(j in 1:m){
-    for(i in 1:m){
+  for(i in 1:m){
+    for (j in i:m){
       pCDF[i,j] <- max(sort.p.set[[j]][sort.p.set[[j]] <= sort.p[i]],0)
-      c <- min(1,sum(pCDF[i,i:m]))
-      adjP[i] <- ifelse(i==1,c,max(adjP[i-1],c))
     }
+    c <- min(1,sum(pCDF[i,i:m]))
+    adjP[i] <- ifelse(i==1,c,max(adjP[i-1],c))
   }
   return(adjP[ro])
 }
@@ -38,10 +43,16 @@ MHolm.p.adjust <- function(p,p.set){
 #' @param p.set a list of numeric vectors, where each vector is the vector of all attainable p-values containing the available p-value for the corresponding hypothesis.
 #' @return
 #' A numeric vector of the adjusted p-values (of the same length as \eqn{p}).
+#' @author Yalin Zhu
 #' @references
 #' Hommel, G., & Krummenauer, F. (1998).
 #' Improvements and modifications of Tarone's multiple test procedure for discrete data.
 #' \emph{Biometrics}, \strong{54}: 673-681.
+#'
+#' Holm, S. (1979).
+#' A simple sequentially rejective multiple test procedure.
+#' \emph{Scandinavian Journal of Statistics}, \strong{6}: 65-70.
+#'
 #' @examples
 #' p <- c(pbinom(1,8,0.5),pbinom(1,5,0.75),pbinom(1,6,0.6))
 #' p.set <-list(pbinom(0:8,8,0.5),pbinom(0:5,5,0.75),pbinom(0:6,6,0.6))

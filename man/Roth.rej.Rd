@@ -24,9 +24,16 @@ p <- c(pbinom(1,8,0.5),pbinom(1,5,0.75),pbinom(1,6,0.6))
 p.set <-list(pbinom(0:8,8,0.5),pbinom(0:5,5,0.75),pbinom(0:6,6,0.6))
 Roth.rej(p,p.set,0.05)
 }
+\author{
+Yalin Zhu
+}
 \references{
 Roth, A. J. (1999).
 Multiple comparison procedures for discrete test statistics.
 \emph{Journal of statistical planning and inference}, \strong{82}: 101-117.
+
+Hochberg, Y. (1988).
+ A sharper Bonferroni procedure for multiple tests of significance.
+ \emph{ Biometrika}, \strong{75}: 800-803.
 }
 

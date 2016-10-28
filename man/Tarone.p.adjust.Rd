@@ -22,8 +22,11 @@ p <- c(pbinom(1,8,0.5),pbinom(1,5,0.75),pbinom(1,6,0.6))
 p.set <-list(pbinom(0:8,8,0.5),pbinom(0:5,5,0.75),pbinom(0:6,6,0.6))
 Tarone.p.adjust(p,p.set)
 }
+\author{
+Yalin Zhu
+}
 \references{
-Tarone, R. E. (1990)
+Tarone, R. E. (1990).
 A modified Bonferroni method for discrete data.
 \emph{Biometrics}, \strong{46}: 515-522.
 }

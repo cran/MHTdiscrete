@@ -9,6 +9,7 @@
 #' @param alternative indicates the alternative hypothesis and must be one of \code{"two.sided"}, \code{"greater"} or \code{"less"}.
 #' @return
 #' A numeric vector of the adjusted p-values (of the same length as \eqn{p}).
+#' @author Yalin Zhu
 #' @references
 #' Clopper, C. J. & Pearson, E. S. (1934).
 #' The use of confidence or fiducial limits illustrated in the case of the binomial.

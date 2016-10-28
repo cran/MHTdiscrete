@@ -22,4 +22,12 @@ p <- c(pbinom(1,8,0.5),pbinom(1,5,0.75),pbinom(1,6,0.6))
 p.set <-list(pbinom(0:8,8,0.5),pbinom(0:5,5,0.75),pbinom(0:6,6,0.6))
 MBH.p.adjust(p,p.set)
 }
+\author{
+Yalin Zhu
+}
+\references{
+Benjamini, Y., and Hochberg, Y. (1995).
+ Controlling the false discovery rate: a practical and powerful approach to multiple testing.
+ \emph{Journal of the Royal Statistical Society Series B}, \strong{57}: 289-300.
+}
 

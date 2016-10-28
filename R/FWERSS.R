@@ -1,3 +1,23 @@
+#' The adjusted p-values for Sidak single-step FWER controlling procedure.
+#'
+#' The function for calculating the adjusted p-values based on original available p-values.
+#'
+#' @usage
+#' Sidak.p.adjust(p)
+#' @param p numeric vector of p-values (possibly with \code{\link[base]{NA}}s). Any other R is coerced by \code{\link[base]{as.numeric}}. Same as in \code{\link[stats]{p.adjust}}.
+#' @return
+#' A numeric vector of the adjusted p-values (of the same length as \eqn{p}).
+#' @author Yalin Zhu
+#' @examples
+#' p <- c(pbinom(1,8,0.5),pbinom(1,5,0.75),pbinom(1,6,0.6))
+#' Sidak.p.adjust(p)
+#' @export
+
+Sidak.p.adjust <- function(p){
+  adjP <- 1-(1-p)^(length(p))
+  return(adjP)
+}
+
 #' The adjusted p-values for Modified Bonferroni single-step FWER controlling procedure.
 #'
 #' The function for calculating the adjusted p-values based on original available p-values and all attaianble p-values
@@ -9,6 +29,7 @@
 #' @note The attainable p-value refers to the element of domain set of p-value for the corresponding hypothesis. For continuous test statistics, the p-value under true null are uniform distributed in (0,1), thus the p-values are attainable everywhere between 0 and 1. But for discrete test statistics, the p-value can only take finite values bewtween 0 and 1, that is the attainable p-values for discrete case are finite and countable, so we can assign them in a finite list \code{p.set}.
 #' @return
 #' A numeric vector of the adjusted p-values (of the same length as \eqn{p}).
+#' @author  Yalin Zhu
 #' @examples
 #' p <- c(pbinom(1,8,0.5),pbinom(1,5,0.75),pbinom(1,6,0.6))
 #' p.set <-list(pbinom(0:8,8,0.5),pbinom(0:5,5,0.75),pbinom(0:6,6,0.6))
@@ -18,11 +39,11 @@
 MBonf.p.adjust <- function(p,p.set){
   m <- length(p)
   adjP <- numeric(m); pCDF <- matrix(NA,m,m)
-  for(j in 1:m){
-    for(i in 1:m){
+  for(i in 1:m){
+    for(j in 1:m){
       pCDF[i,j] <- max(p.set[[j]][p.set[[j]] <= p[i]],0)
-      adjP[i] <- min(sum(pCDF[i,]),1)
     }
+    adjP[i] <- min(sum(pCDF[i,]),1)
   }
   return(adjP)
 }
@@ -37,8 +58,9 @@ MBonf.p.adjust <- function(p,p.set){
 #' @param p.set a list of numeric vectors, where each vector is the vector of all attainable p-values containing the available p-value for the corresponding hypothesis.
 #' @return
 #' A numeric vector of the adjusted p-values (of the same length as \eqn{p}).
+#' @author Yalin Zhu
 #' @references
-#' Tarone, R. E. (1990)
+#' Tarone, R. E. (1990).
 #' A modified Bonferroni method for discrete data.
 #' \emph{Biometrics}, \strong{46}: 515-522.
 #'

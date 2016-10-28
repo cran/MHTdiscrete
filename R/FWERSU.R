@@ -8,6 +8,12 @@
 #' @param p.set a list of numeric vectors, where each vector is the vector of all attainable p-values containing the available p-value for the corresponding hypothesis..
 #' @return
 #' A numeric vector of the adjusted p-values (of the same length as \eqn{p}).
+#' @author Yalin Zhu
+#' @references
+#'  Hochberg, Y. (1988).
+#'  A sharper Bonferroni procedure for multiple tests of significance.
+#'  \emph{ Biometrika}, \strong{75}: 800-803.
+#'
 #' @examples
 #' p <- c(pbinom(1,8,0.5),pbinom(1,5,0.75),pbinom(1,6,0.6))
 #' p.set <-list(pbinom(0:8,8,0.5),pbinom(0:5,5,0.75),pbinom(0:6,6,0.6))
@@ -19,12 +25,12 @@ MHoch.p.adjust <- function(p,p.set){
   o <- order(p); ro <- order(o); m <- length(p)
   sort.p <- p[o]; sort.p.set <- p.set[o]
   adjP <- numeric(m); pCDF <- matrix(NA,m,m)
-  for(j in 1:m){
-    for(i in m:1){
+  for (i in m:1){
+    for (j in i:m){
       pCDF[i,j] <- max(sort.p.set[[j]][sort.p.set[[j]] <= sort.p[i]],0)
-      c <- sum(pCDF[i,i:m])
-      adjP[i] <- ifelse(i==m,c,min(adjP[i+1],c))
     }
+    c <- sum(pCDF[i,i:m])
+    adjP[i] <- ifelse(i==m, c, min(adjP[i+1],c))
   }
   return(adjP[ro])
 }
@@ -40,10 +46,15 @@ MHoch.p.adjust <- function(p,p.set){
 #' @param alpha the given significant level for Roth's procedure, the default value is 0.05.
 #' @return
 #' An integer value of the number of rejected hypotheses.
+#' @author Yalin Zhu
 #' @references
 #' Roth, A. J. (1999).
 #' Multiple comparison procedures for discrete test statistics.
 #' \emph{Journal of statistical planning and inference}, \strong{82}: 101-117.
+#'
+#' Hochberg, Y. (1988).
+#'  A sharper Bonferroni procedure for multiple tests of significance.
+#'  \emph{ Biometrika}, \strong{75}: 800-803.
 #'
 #' @examples
 #' p <- c(pbinom(1,8,0.5),pbinom(1,5,0.75),pbinom(1,6,0.6))
@@ -93,6 +104,7 @@ Roth.rej <- function(p,p.set,alpha=0.05){
 #' @param digits minimal number of significant digits for the adjusted p-values, the default value is 4, see \code{\link[base]{print.default}}.
 #' @return
 #' A numeric vector of the adjusted p-values (of the same length as \eqn{p}).
+#' @author Yalin Zhu
 #' @references
 #' Roth, A. J. (1999).
 #' Multiple comparison procedures for discrete test statistics.

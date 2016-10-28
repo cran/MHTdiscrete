@@ -31,6 +31,9 @@ p <- getPval(raw.data=df, test.type = "FET",alternative = "two.sided")[[1]]; p
  # store the attainable p-values
 p.set <- getPval(raw.data=df, test.type = "FET",alternative = "two.sided")[[2]]; p.set
 }
+\author{
+Yalin Zhu
+}
 \references{
 Clopper, C. J. & Pearson, E. S. (1934).
 The use of confidence or fiducial limits illustrated in the case of the binomial.
