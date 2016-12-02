@@ -12,7 +12,7 @@ MBH.p.adjust(p,p.set)
 \item{p.set}{a list of numeric vectors, where each vector is the vector of all attainable p-values containing the available p-value for the corresponding hypothesis.}
 }
 \value{
-A numeric vector of the adjusted p-values (of the same length as \eqn{p}).
+A numeric vector of the adjusted p-values (of the same length as \code{p}).
 }
 \description{
 The function for calculating the adjusted p-values based on original available p-values and all attaianble p-values.
@@ -29,5 +29,8 @@ Yalin Zhu
 Benjamini, Y., and Hochberg, Y. (1995).
  Controlling the false discovery rate: a practical and powerful approach to multiple testing.
  \emph{Journal of the Royal Statistical Society Series B}, \strong{57}: 289-300.
+}
+\seealso{
+\code{\link{MBY.p.adjust}},  \code{\link{MBL.p.adjust}}
 }
 

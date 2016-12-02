@@ -6,7 +6,8 @@
 #' Sidak.p.adjust(p)
 #' @param p numeric vector of p-values (possibly with \code{\link[base]{NA}}s). Any other R is coerced by \code{\link[base]{as.numeric}}. Same as in \code{\link[stats]{p.adjust}}.
 #' @return
-#' A numeric vector of the adjusted p-values (of the same length as \eqn{p}).
+#' A numeric vector of the adjusted p-values (of the same length as \code{p}).
+#' @seealso  \code{\link[stats]{p.adjust}}.
 #' @author Yalin Zhu
 #' @examples
 #' p <- c(pbinom(1,8,0.5),pbinom(1,5,0.75),pbinom(1,6,0.6))
@@ -28,7 +29,8 @@ Sidak.p.adjust <- function(p){
 #' @param p.set a list of numeric vectors, where each vector is the vector of all attainable p-values containing the available p-value for the corresponding hypothesis.
 #' @note The attainable p-value refers to the element of domain set of p-value for the corresponding hypothesis. For continuous test statistics, the p-value under true null are uniform distributed in (0,1), thus the p-values are attainable everywhere between 0 and 1. But for discrete test statistics, the p-value can only take finite values bewtween 0 and 1, that is the attainable p-values for discrete case are finite and countable, so we can assign them in a finite list \code{p.set}.
 #' @return
-#' A numeric vector of the adjusted p-values (of the same length as \eqn{p}).
+#' A numeric vector of the adjusted p-values (of the same length as \code{p}).
+#' @seealso \code{\link{Tarone.p.adjust}},  \code{\link{MixBonf.p.adjust}},  \code{\link[stats]{p.adjust}}.
 #' @author  Yalin Zhu
 #' @examples
 #' p <- c(pbinom(1,8,0.5),pbinom(1,5,0.75),pbinom(1,6,0.6))
@@ -48,16 +50,45 @@ MBonf.p.adjust <- function(p,p.set){
   return(adjP)
 }
 
+#' The adjusted p-values for Mixed Bonferroni single-step FWER controlling procedure.
+#'
+#' The function for calculating the adjusted p-values based on original available p-values and the attaianble p-values for the discrete test statistics.
+#'
+#' @usage
+#' MixBonf.p.adjust(pc, pd, pd.set)
+#' @param pc numeric vector of the available p-values (possibly with \code{\link[base]{NA}}s) for the continuous test statistics. Any other R is coerced by \code{\link[base]{as.numeric}}. Same as in \code{\link[stats]{p.adjust}}.
+#' @param pd numeric vector of the available p-values (possibly with \code{\link[base]{NA}}s) for the discrete test statistics. Any other R is coerced by \code{\link[base]{as.numeric}}. Same as in \code{\link[stats]{p.adjust}}.
+#' @param pd.set a list of numeric vectors, where each vector is the vector of all attainable p-values containing the available p-value for the corresponding hypothesis for discrete data.
+#' @return
+#' A numeric vector of the adjusted p-values (of the same length as \code{p}).
+#' @seealso \code{\link{Tarone.p.adjust}},  \code{\link{MBonf.p.adjust}},  \code{\link[stats]{p.adjust}}.
+#' @note The arguments include three parts, the available p-values need to be reorganized in advance. Gather all available p-values for continuous data as \code{pc}, and all available p-values for discrete data as \code{pd}. The attainable p-value refers to the element of domain set of p-value for the corresponding hypothesis for discrete test statistics, the p-value can only take finite values bewtween 0 and 1, that is, the attainable p-values for discrete case are finite and countable, so we can assign them in a finite list \code{pd.set}. The function returns the  adjusted p-values with the first part for continuous data of the same length as \code{pc}, and second part for discrete data of the same length as \code{pd}
+#' @author  Yalin Zhu
+#' @export
+MixBonf.p.adjust <- function(pc, pd, pd.set){
+  mc <- length(pc); md <- length(pd); m <- mc+md
+  p <- c(pc,pd)
+  adjP <- numeric(m); pCDF <- matrix(NA,m,md)
+  for(i in 1:m){
+    for(j in 1:md){
+      pCDF[i,j] <- max(pd.set[[j]][pd.set[[j]] <= p[i]],0)
+    }
+    adjP[i] <- min(mc*p[i]+sum(pCDF[i,]),1)
+  }
+  return(adjP)
+}
+
 #' The adjusted p-values for Tarone's single-step FWER controlling procedure.
 #'
 #' The function for calculating the adjusted p-values based on original available p-values and all attaianble p-values.
 #'
 #' @usage
-#' Tarone.p.adjust(p,p.set)
+#' Tarone.p.adjust(p, p.set)
 #' @param p numeric vector of p-values (possibly with \code{\link[base]{NA}}s). Any other R is coerced by \code{\link[base]{as.numeric}}. Same as in \code{\link[stats]{p.adjust}}.
 #' @param p.set a list of numeric vectors, where each vector is the vector of all attainable p-values containing the available p-value for the corresponding hypothesis.
 #' @return
-#' A numeric vector of the adjusted p-values (of the same length as \eqn{p}).
+#' A numeric vector of the adjusted p-values (of the same length as \code{p}).
+#' @seealso \code{\link{MBonf.p.adjust}},  \code{\link{MixBonf.p.adjust}},  \code{\link[stats]{p.adjust}}.
 #' @author Yalin Zhu
 #' @references
 #' Tarone, R. E. (1990).

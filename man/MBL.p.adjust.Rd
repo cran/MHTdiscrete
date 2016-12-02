@@ -12,7 +12,7 @@ MBL.p.adjust(p,p.set)
 \item{p.set}{a list of numeric vectors, where each vector is the vector of all attainable p-values containing the available p-value for the corresponding hypothesis.}
 }
 \value{
-A numeric vector of the adjusted p-values (of the same length as \eqn{p}).
+A numeric vector of the adjusted p-values (of the same length as \code{p}).
 }
 \description{
 The function for calculating the adjusted p-values based on original available p-values and all attaianble p-values.
@@ -32,5 +32,8 @@ Yalin Zhu
 Benjamini, Y., and Liu, W. (1999).
 A step-down multiple hypotheses testing procedure that controls the false discovery rate under independence.
  \emph{Journal of Statistical Planning and Inference}, \strong{82}: 163-170.
+}
+\seealso{
+\code{\link{MBH.p.adjust}},  \code{\link{MBY.p.adjust}}
 }
 

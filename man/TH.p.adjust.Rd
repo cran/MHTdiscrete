@@ -12,7 +12,7 @@ TH.p.adjust(p,p.set)
 \item{p.set}{a list of numeric vectors, where each vector is the vector of all attainable p-values containing the available p-value for the corresponding hypothesis.}
 }
 \value{
-A numeric vector of the adjusted p-values (of the same length as \eqn{p}).
+A numeric vector of the adjusted p-values (of the same length as \code{p}).
 }
 \description{
 The function for calculating the adjusted p-values based on original available p-values and all attaianble p-values.
@@ -33,5 +33,8 @@ Improvements and modifications of Tarone's multiple test procedure for discrete 
 Holm, S. (1979).
 A simple sequentially rejective multiple test procedure.
 \emph{Scandinavian Journal of Statistics}, \strong{6}: 65-70.
+}
+\seealso{
+\code{\link{MHolm.p.adjust}}, \code{\link[stats]{p.adjust}}.
 }
 

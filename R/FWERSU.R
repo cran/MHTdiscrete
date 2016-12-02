@@ -7,7 +7,8 @@
 #' @param p numeric vector of p-values (possibly with \code{\link[base]{NA}}s). Any other R is coerced by \code{\link[base]{as.numeric}}. Same as in \code{\link[stats]{p.adjust}}.
 #' @param p.set a list of numeric vectors, where each vector is the vector of all attainable p-values containing the available p-value for the corresponding hypothesis..
 #' @return
-#' A numeric vector of the adjusted p-values (of the same length as \eqn{p}).
+#' A numeric vector of the adjusted p-values (of the same length as \code{p}).
+#' @seealso \code{\link{Roth.p.adjust}},  \code{\link[stats]{p.adjust}}.
 #' @author Yalin Zhu
 #' @references
 #'  Hochberg, Y. (1988).
@@ -19,7 +20,6 @@
 #' p.set <-list(pbinom(0:8,8,0.5),pbinom(0:5,5,0.75),pbinom(0:6,6,0.6))
 #' MHoch.p.adjust(p,p.set)
 #' @export
-
 
 MHoch.p.adjust <- function(p,p.set){
   o <- order(p); ro <- order(o); m <- length(p)
@@ -103,7 +103,8 @@ Roth.rej <- function(p,p.set,alpha=0.05){
 #' @param p.set a list of numeric vectors, where each vector is the vector of all attainable p-values containing the available p-value for the corresponding hypothesis..
 #' @param digits minimal number of significant digits for the adjusted p-values, the default value is 4, see \code{\link[base]{print.default}}.
 #' @return
-#' A numeric vector of the adjusted p-values (of the same length as \eqn{p}).
+#' A numeric vector of the adjusted p-values (of the same length as \code{p}).
+#' @seealso \code{\link{MHoch.p.adjust}},  \code{\link[stats]{p.adjust}}.
 #' @author Yalin Zhu
 #' @references
 #' Roth, A. J. (1999).

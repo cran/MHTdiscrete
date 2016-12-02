@@ -7,7 +7,8 @@
 #' @param p numeric vector of p-values (possibly with \code{\link[base]{NA}}s). Any other R is coerced by \code{\link[base]{as.numeric}}. Same as in \code{\link[stats]{p.adjust}}.
 #' @param p.set a list of numeric vectors, where each vector is the vector of all attainable p-values containing the available p-value for the corresponding hypothesis.
 #' @return
-#' A numeric vector of the adjusted p-values (of the same length as \eqn{p}).
+#' A numeric vector of the adjusted p-values (of the same length as \code{p}).
+#' @seealso \code{\link{MBY.p.adjust}},  \code{\link{MBL.p.adjust}}
 #' @author Yalin Zhu
 #' @references
 #' Benjamini, Y., and Hochberg, Y. (1995).
@@ -42,7 +43,8 @@ MBH.p.adjust <- function(p,p.set){
 #' @param p numeric vector of p-values (possibly with \code{\link[base]{NA}}s). Any other R is coerced by \code{\link[base]{as.numeric}}. Same as in \code{\link[stats]{p.adjust}}.
 #' @param p.set a list of numeric vectors, where each vector is the vector of all attainable p-values containing the available p-value for the corresponding hypothesis.
 #' @return
-#' A numeric vector of the adjusted p-values (of the same length as \eqn{p}).
+#' A numeric vector of the adjusted p-values (of the same length as \code{p}).
+#' @seealso \code{\link{GTBY.p.adjust}},  \code{\link{MBH.p.adjust}},  \code{\link{MBY.p.adjust}}
 #' @author Yalin Zhu
 #' @references
 #' Gilbert, P. B. (2005).
@@ -84,7 +86,8 @@ GTBH.p.adjust <- function(p,p.set){
 #' @param p numeric vector of p-values (possibly with \code{\link[base]{NA}}s). Any other R is coerced by \code{\link[base]{as.numeric}}. Same as in \code{\link[stats]{p.adjust}}.
 #' @param p.set a list of numeric vectors, where each vector is the vector of all attainable p-values containing the available p-value for the corresponding hypothesis.
 #' @return
-#' A numeric vector of the adjusted p-values (of the same length as \eqn{p}).
+#' A numeric vector of the adjusted p-values (of the same length as \code{p}).
+#' @seealso  \code{\link{MBH.p.adjust}},  \code{\link{MBL.p.adjust}}
 #' @author Yalin Zhu
 #' @references
 #' Benjamini, Y., and Yekutieli, D. (2001).
@@ -121,7 +124,8 @@ MBY.p.adjust <- function(p,p.set){
 #' @param p numeric vector of p-values (possibly with \code{\link[base]{NA}}s). Any other R is coerced by \code{\link[base]{as.numeric}}. Same as in \code{\link[stats]{p.adjust}}.
 #' @param p.set a list of numeric vectors, where each vector is the vector of all attainable p-values containing the available p-value for the corresponding hypothesis.
 #' @return
-#' A numeric vector of the adjusted p-values (of the same length as \eqn{p}).
+#' A numeric vector of the adjusted p-values (of the same length as \code{p}).
+#' @seealso \code{\link{GTBH.p.adjust}},  \code{\link{MBH.p.adjust}},  \code{\link{MBY.p.adjust}}
 #' @author Yalin Zhu
 #' @references
 #' Gilbert, P. B. (2005).

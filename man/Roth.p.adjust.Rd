@@ -14,7 +14,7 @@ Roth.p.adjust(p,p.set,digits)
 \item{digits}{minimal number of significant digits for the adjusted p-values, the default value is 4, see \code{\link[base]{print.default}}.}
 }
 \value{
-A numeric vector of the adjusted p-values (of the same length as \eqn{p}).
+A numeric vector of the adjusted p-values (of the same length as \code{p}).
 }
 \description{
 The function for calculating the adjusted p-values based on original available p-values and all attaianble p-values.
@@ -31,5 +31,8 @@ Yalin Zhu
 Roth, A. J. (1999).
 Multiple comparison procedures for discrete test statistics.
 \emph{Journal of statistical planning and inference}, \strong{82}: 101-117.
+}
+\seealso{
+\code{\link{MHoch.p.adjust}},  \code{\link[stats]{p.adjust}}.
 }
 

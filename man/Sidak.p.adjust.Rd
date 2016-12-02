@@ -10,7 +10,7 @@ Sidak.p.adjust(p)
 \item{p}{numeric vector of p-values (possibly with \code{\link[base]{NA}}s). Any other R is coerced by \code{\link[base]{as.numeric}}. Same as in \code{\link[stats]{p.adjust}}.}
 }
 \value{
-A numeric vector of the adjusted p-values (of the same length as \eqn{p}).
+A numeric vector of the adjusted p-values (of the same length as \code{p}).
 }
 \description{
 The function for calculating the adjusted p-values based on original available p-values.
@@ -21,5 +21,8 @@ Sidak.p.adjust(p)
 }
 \author{
 Yalin Zhu
+}
+\seealso{
+\code{\link[stats]{p.adjust}}.
 }
 

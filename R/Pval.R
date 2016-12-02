@@ -22,8 +22,8 @@
 #' @examples
 #'  ## Using Fisher's Exact Test to get the avaiable and attainablep-values
 #'  # import raw data set as data.frame type
-#'  df <-data.frame(X1=c(4, 2, 2, 13, 6, 8, 4, 0, 1), N1 = rep(148, 9),
-#'					X2=c(0, 0, 1, 3, 2, 1, 2, 2, 2), N2 = rep(132, 9))
+#'  df <-  data.frame(X1=c(4, 2, 2, 13, 6, 8, 4, 0, 1), N1 = rep(148, 9),
+#'  	X2 = c(0, 0, 1, 3, 2, 1, 2, 2, 2), N2 = rep(132, 9))
 #'  # obtain the avaiable p-values and attainable p-values using two-sided Fisher's Exact Test
 #'  getPval(raw.data=df, test.type = "FET",alternative = "two.sided")
 #'  # store the avaiable p-values

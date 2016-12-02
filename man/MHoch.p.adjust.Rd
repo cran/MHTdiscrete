@@ -12,7 +12,7 @@ MHoch.p.adjust(p,p.set)
 \item{p.set}{a list of numeric vectors, where each vector is the vector of all attainable p-values containing the available p-value for the corresponding hypothesis..}
 }
 \value{
-A numeric vector of the adjusted p-values (of the same length as \eqn{p}).
+A numeric vector of the adjusted p-values (of the same length as \code{p}).
 }
 \description{
 The function for calculating the adjusted p-values based on original available p-values and all attaianble p-values.
@@ -29,5 +29,8 @@ Yalin Zhu
 Hochberg, Y. (1988).
  A sharper Bonferroni procedure for multiple tests of significance.
  \emph{ Biometrika}, \strong{75}: 800-803.
+}
+\seealso{
+\code{\link{Roth.p.adjust}},  \code{\link[stats]{p.adjust}}.
 }
 

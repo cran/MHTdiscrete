@@ -4,7 +4,7 @@
 \alias{Tarone.p.adjust}
 \title{The adjusted p-values for Tarone's single-step FWER controlling procedure.}
 \usage{
-Tarone.p.adjust(p,p.set)
+Tarone.p.adjust(p, p.set)
 }
 \arguments{
 \item{p}{numeric vector of p-values (possibly with \code{\link[base]{NA}}s). Any other R is coerced by \code{\link[base]{as.numeric}}. Same as in \code{\link[stats]{p.adjust}}.}
@@ -12,7 +12,7 @@ Tarone.p.adjust(p,p.set)
 \item{p.set}{a list of numeric vectors, where each vector is the vector of all attainable p-values containing the available p-value for the corresponding hypothesis.}
 }
 \value{
-A numeric vector of the adjusted p-values (of the same length as \eqn{p}).
+A numeric vector of the adjusted p-values (of the same length as \code{p}).
 }
 \description{
 The function for calculating the adjusted p-values based on original available p-values and all attaianble p-values.
@@ -29,5 +29,8 @@ Yalin Zhu
 Tarone, R. E. (1990).
 A modified Bonferroni method for discrete data.
 \emph{Biometrics}, \strong{46}: 515-522.
+}
+\seealso{
+\code{\link{MBonf.p.adjust}},  \code{\link{MixBonf.p.adjust}},  \code{\link[stats]{p.adjust}}.
 }
 

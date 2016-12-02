@@ -7,7 +7,8 @@
 #' @param p numeric vector of p-values (possibly with \code{\link[base]{NA}}s). Any other R is coerced by \code{\link[base]{as.numeric}}. Same as in \code{\link[stats]{p.adjust}}.
 #' @param p.set a list of numeric vectors, where each vector is the vector of all attainable p-values containing the available p-value for the corresponding hypothesis.
 #' @return
-#' A numeric vector of the adjusted p-values (of the same length as \eqn{p}).
+#' A numeric vector of the adjusted p-values (of the same length as \code{p}).
+#' @seealso \code{\link{TH.p.adjust}}, \code{\link[stats]{p.adjust}}.
 #' @author Yalin Zhu
 #' @references
 #' Holm, S. (1979).
@@ -42,7 +43,8 @@ MHolm.p.adjust <- function(p,p.set){
 #' @param p numeric vector of p-values (possibly with \code{\link[base]{NA}}s). Any other R is coerced by \code{\link[base]{as.numeric}}. Same as in \code{\link[stats]{p.adjust}}.
 #' @param p.set a list of numeric vectors, where each vector is the vector of all attainable p-values containing the available p-value for the corresponding hypothesis.
 #' @return
-#' A numeric vector of the adjusted p-values (of the same length as \eqn{p}).
+#' A numeric vector of the adjusted p-values (of the same length as \code{p}).
+#' @seealso \code{\link{MHolm.p.adjust}}, \code{\link[stats]{p.adjust}}.
 #' @author Yalin Zhu
 #' @references
 #' Hommel, G., & Krummenauer, F. (1998).
