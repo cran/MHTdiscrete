@@ -3,9 +3,11 @@
 #' The function for calculating the adjusted p-values based on original available p-values and all attaianble p-values.
 #'
 #' @usage
-#' MBH.p.adjust(p,p.set)
+#' MBH.p.adjust(p, p.set, alpha, make.decision)
 #' @param p numeric vector of p-values (possibly with \code{\link[base]{NA}}s). Any other R is coerced by \code{\link[base]{as.numeric}}. Same as in \code{\link[stats]{p.adjust}}.
 #' @param p.set a list of numeric vectors, where each vector is the vector of all attainable p-values containing the available p-value for the corresponding hypothesis.
+#' @param alpha significant level used to compare with adjusted p-values to make decisions, the default value is 0.05.
+#' @param make.decision logical; if  \code{TRUE}, then the output include the decision rules compared adjusted p-values with significant level \eqn{\alpha}
 #' @return
 #' A numeric vector of the adjusted p-values (of the same length as \code{p}).
 #' @seealso \code{\link{MBY.p.adjust}},  \code{\link{MBL.p.adjust}}
@@ -20,7 +22,7 @@
 #' MBH.p.adjust(p,p.set)
 #' @export
 
-MBH.p.adjust <- function(p,p.set){
+MBH.p.adjust <- function(p,p.set, alpha = 0.05, make.decision = FALSE){
   o <- order(p); ro <- order(o); m <- length(p)
   sort.p <- p[o]; sort.p.set <- p.set[o]
   adjP <- numeric();pCDF <- matrix(NA,m,m)
@@ -31,7 +33,11 @@ MBH.p.adjust <- function(p,p.set){
     c <- sum(pCDF[i,1:m])/i
     adjP[i] <- ifelse(i==m,c,min(adjP[i+1],c))
   }
-  return(adjP[ro])
+  if (make.decision==FALSE){
+    return(adjP[ro])
+  } else{
+    return(list(method= "Modified Benjamini-Hochberg (BH)", significant.level = alpha, Result = data.frame(raw.p = p, adjust.p=adjP[ro], decision=ifelse(adjP[ro]<=alpha, "reject","accept"))))
+  }
 }
 
 #' The adjusted p-values for Gilbert-Tarone-BH step-up FDR controlling procedure.
@@ -39,9 +45,11 @@ MBH.p.adjust <- function(p,p.set){
 #' The function for calculating the adjusted p-values based on original available p-values and all attaianble p-values.
 #'
 #' @usage
-#' GTBH.p.adjust(p,p.set)
+#' GTBH.p.adjust(p, p.set, alpha, make.decision)
 #' @param p numeric vector of p-values (possibly with \code{\link[base]{NA}}s). Any other R is coerced by \code{\link[base]{as.numeric}}. Same as in \code{\link[stats]{p.adjust}}.
 #' @param p.set a list of numeric vectors, where each vector is the vector of all attainable p-values containing the available p-value for the corresponding hypothesis.
+#' @param alpha significant level used to compare with adjusted p-values to make decisions, the default value is 0.05.
+#' @param make.decision logical; if  \code{TRUE}, then the output include the decision rules compared adjusted p-values with significant level \eqn{\alpha}
 #' @return
 #' A numeric vector of the adjusted p-values (of the same length as \code{p}).
 #' @seealso \code{\link{GTBY.p.adjust}},  \code{\link{MBH.p.adjust}},  \code{\link{MBY.p.adjust}}
@@ -61,7 +69,7 @@ MBH.p.adjust <- function(p,p.set){
 #' GTBH.p.adjust(p,p.set)
 #' @export
 
-GTBH.p.adjust <- function(p,p.set){
+GTBH.p.adjust <- function(p,p.set, alpha = 0.05, make.decision = FALSE){
   o <- order(p); ro <- order(o); m <- length(p); adjP <- numeric(m)
   sort.p <- p[o]; sort.p.set <- p.set[o]
   minP <- sort(sapply(sort.p.set,min))
@@ -72,7 +80,11 @@ GTBH.p.adjust <- function(p,p.set){
     }
     adjP[j] <-  ifelse(j==q,sort.p[j],min(adjP[j+1],q*sort.p[j]/j))
   }
-  return(adjP[ro])
+  if (make.decision==FALSE){
+    return(adjP[ro])
+  } else{
+    return(list(method= "Gilbert-Tarone-BH", significant.level = alpha, Result = data.frame(raw.p = p, adjust.p=adjP[ro], decision=ifelse(adjP[ro]<=alpha, "reject","accept"))))
+  }
 }
 
 
@@ -82,9 +94,11 @@ GTBH.p.adjust <- function(p,p.set){
 #' The function for calculating the adjusted p-values based on original available p-values and all attaianble p-values.
 #'
 #' @usage
-#' MBY.p.adjust(p,p.set)
+#' MBY.p.adjust(p, p.set, alpha, make.decision)
 #' @param p numeric vector of p-values (possibly with \code{\link[base]{NA}}s). Any other R is coerced by \code{\link[base]{as.numeric}}. Same as in \code{\link[stats]{p.adjust}}.
 #' @param p.set a list of numeric vectors, where each vector is the vector of all attainable p-values containing the available p-value for the corresponding hypothesis.
+#' @param alpha significant level used to compare with adjusted p-values to make decisions, the default value is 0.05.
+#' @param make.decision logical; if  \code{TRUE}, then the output include the decision rules compared adjusted p-values with significant level \eqn{\alpha}
 #' @return
 #' A numeric vector of the adjusted p-values (of the same length as \code{p}).
 #' @seealso  \code{\link{MBH.p.adjust}},  \code{\link{MBL.p.adjust}}
@@ -100,7 +114,7 @@ GTBH.p.adjust <- function(p,p.set){
 #' @export
 
 
-MBY.p.adjust <- function(p,p.set){
+MBY.p.adjust <- function(p,p.set, alpha = 0.05, make.decision = FALSE){
   o <- order(p); ro <- order(o); m <- length(p); C <- sum(1/c(1:m))
   sort.p <- p[o]; sort.p.set <- p.set[o]
   adjP <- numeric();pCDF <- matrix(NA,m,m)
@@ -111,7 +125,11 @@ MBY.p.adjust <- function(p,p.set){
     c <- min(1,sum(pCDF[i,1:m])*C/i)
     adjP[i] <- ifelse(i==m,c,min(adjP[i+1],c))
   }
-  return(adjP[ro])
+  if (make.decision==FALSE){
+    return(adjP[ro])
+  } else{
+    return(list(method= "Modified Benjamini-Yekutieli (BY)", significant.level = alpha, Result = data.frame(raw.p = p, adjust.p=adjP[ro], decision=ifelse(adjP[ro]<=alpha, "reject","accept"))))
+  }
 }
 
 
@@ -120,9 +138,11 @@ MBY.p.adjust <- function(p,p.set){
 #' The function for calculating the adjusted p-values based on original available p-values and all attaianble p-values.
 #'
 #' @usage
-#' GTBY.p.adjust(p,p.set)
+#' GTBY.p.adjust(p, p.set, alpha, make.decision)
 #' @param p numeric vector of p-values (possibly with \code{\link[base]{NA}}s). Any other R is coerced by \code{\link[base]{as.numeric}}. Same as in \code{\link[stats]{p.adjust}}.
 #' @param p.set a list of numeric vectors, where each vector is the vector of all attainable p-values containing the available p-value for the corresponding hypothesis.
+#' @param alpha significant level used to compare with adjusted p-values to make decisions, the default value is 0.05.
+#' @param make.decision logical; if  \code{TRUE}, then the output include the decision rules compared adjusted p-values with significant level \eqn{\alpha}
 #' @return
 #' A numeric vector of the adjusted p-values (of the same length as \code{p}).
 #' @seealso \code{\link{GTBH.p.adjust}},  \code{\link{MBH.p.adjust}},  \code{\link{MBY.p.adjust}}
@@ -142,7 +162,7 @@ MBY.p.adjust <- function(p,p.set){
 #' GTBY.p.adjust(p,p.set)
 #' @export
 
-GTBY.p.adjust <-  function(p,p.set){
+GTBY.p.adjust <-  function(p,p.set, alpha = 0.05, make.decision = FALSE){
   o <- order(p); ro <- order(o); m <- length(p); adjP <- numeric(m)
   sort.p <- p[o]; sort.p.set <- p.set[o]
   minP <- sort(sapply(sort.p.set,min))
@@ -154,5 +174,9 @@ GTBY.p.adjust <-  function(p,p.set){
     C <- sum(1/c(1:q))
     adjP[j] <-  ifelse(j==q,sort.p[j],min(adjP[j+1],q*C*sort.p[j]/j))
   }
-  return(adjP[ro])
+  if (make.decision==FALSE){
+    return(adjP[ro])
+  } else{
+    return(list(method= "Gilbert-Tarone-BY", significant.level = alpha, Result = data.frame(raw.p = p, adjust.p=adjP[ro], decision=ifelse(adjP[ro]<=alpha, "reject","accept"))))
+  }
 }

@@ -25,9 +25,7 @@ The MHTdiscrete package provides two categories of important functions for discr
 
        Step-up: MBH.p.adjust, GTBH.p.adjust, MBY.p.adjust, GTBY.p.adjust.
 }
-\author{
-Yalin Zhu
-}
+
 \references{
 Tarone, R. E. (1990).
 A modified Bonferroni method for discrete data.
@@ -61,4 +59,6 @@ Benjamini, Y., and Liu, W. (1999).
 A step-down multiple hypotheses testing procedure that controls the false discovery rate under independence.
  \emph{Journal of Statistical Planning and Inference}, \strong{82}: 163-170.
 }
-
+\author{
+Yalin Zhu
+}

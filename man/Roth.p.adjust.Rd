@@ -4,7 +4,7 @@
 \alias{Roth.p.adjust}
 \title{The adjusted p-values for Roth's step-up FWER controlling procedure.}
 \usage{
-Roth.p.adjust(p,p.set,digits)
+Roth.p.adjust(p, p.set, digits,  alpha, make.decision)
 }
 \arguments{
 \item{p}{numeric vector of p-values (possibly with \code{\link[base]{NA}}s). Any other R is coerced by \code{\link[base]{as.numeric}}. Same as in \code{\link[stats]{p.adjust}}.}
@@ -12,6 +12,10 @@ Roth.p.adjust(p,p.set,digits)
 \item{p.set}{a list of numeric vectors, where each vector is the vector of all attainable p-values containing the available p-value for the corresponding hypothesis..}
 
 \item{digits}{minimal number of significant digits for the adjusted p-values, the default value is 4, see \code{\link[base]{print.default}}.}
+
+\item{alpha}{significant level used to compare with adjusted p-values to make decisions, the default value is 0.05.}
+
+\item{make.decision}{logical; if  \code{TRUE}, then the output include the decision rules compared adjusted p-values with significant level \eqn{\alpha}}
 }
 \value{
 A numeric vector of the adjusted p-values (of the same length as \code{p}).
@@ -24,9 +28,6 @@ p <- c(pbinom(1,8,0.5),pbinom(1,5,0.75),pbinom(1,6,0.6))
 p.set <-list(pbinom(0:8,8,0.5),pbinom(0:5,5,0.75),pbinom(0:6,6,0.6))
 Roth.p.adjust(p,p.set,digits=5)
 }
-\author{
-Yalin Zhu
-}
 \references{
 Roth, A. J. (1999).
 Multiple comparison procedures for discrete test statistics.
@@ -35,4 +36,6 @@ Multiple comparison procedures for discrete test statistics.
 \seealso{
 \code{\link{MHoch.p.adjust}},  \code{\link[stats]{p.adjust}}.
 }
-
+\author{
+Yalin Zhu
+}

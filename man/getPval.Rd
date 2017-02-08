@@ -31,9 +31,6 @@ p <- getPval(raw.data=df, test.type = "FET",alternative = "two.sided")[[1]]; p
  # store the attainable p-values
 p.set <- getPval(raw.data=df, test.type = "FET",alternative = "two.sided")[[2]]; p.set
 }
-\author{
-Yalin Zhu
-}
 \references{
 Clopper, C. J. & Pearson, E. S. (1934).
 The use of confidence or fiducial limits illustrated in the case of the binomial.
@@ -43,4 +40,6 @@ Fisher, R. A. (1922).
 On the Interpretation of \eqn{\chi^2} from Contingency Tables, and the Calculation of P.
 \emph{Journal of the Royal Statistical Society}, \strong{85}: 87-94.
 }
-
+\author{
+Yalin Zhu
+}

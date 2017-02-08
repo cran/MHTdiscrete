@@ -3,9 +3,11 @@
 #' The function for calculating the adjusted p-values based on original available p-values and all attaianble p-values.
 #'
 #' @usage
-#' MHoch.p.adjust(p,p.set)
+#' MHoch.p.adjust(p, p.set, alpha, make.decision)
 #' @param p numeric vector of p-values (possibly with \code{\link[base]{NA}}s). Any other R is coerced by \code{\link[base]{as.numeric}}. Same as in \code{\link[stats]{p.adjust}}.
 #' @param p.set a list of numeric vectors, where each vector is the vector of all attainable p-values containing the available p-value for the corresponding hypothesis..
+#' @param alpha significant level used to compare with adjusted p-values to make decisions, the default value is 0.05.
+#' @param make.decision logical; if  \code{TRUE}, then the output include the decision rules compared adjusted p-values with significant level \eqn{\alpha}
 #' @return
 #' A numeric vector of the adjusted p-values (of the same length as \code{p}).
 #' @seealso \code{\link{Roth.p.adjust}},  \code{\link[stats]{p.adjust}}.
@@ -21,7 +23,7 @@
 #' MHoch.p.adjust(p,p.set)
 #' @export
 
-MHoch.p.adjust <- function(p,p.set){
+MHoch.p.adjust <- function(p,p.set, alpha = 0.05, make.decision = FALSE){
   o <- order(p); ro <- order(o); m <- length(p)
   sort.p <- p[o]; sort.p.set <- p.set[o]
   adjP <- numeric(m); pCDF <- matrix(NA,m,m)
@@ -32,7 +34,11 @@ MHoch.p.adjust <- function(p,p.set){
     c <- sum(pCDF[i,i:m])
     adjP[i] <- ifelse(i==m, c, min(adjP[i+1],c))
   }
-  return(adjP[ro])
+  if (make.decision==FALSE){
+    return(adjP[ro])
+  } else{
+    return(list(method= "Modified Hochberg", significant.level = alpha, Result = data.frame(raw.p = p, adjust.p=adjP[ro], decision=ifelse(adjP[ro]<=alpha, "reject","accept"))))
+  }
 }
 
 #' The number of rejected hypotheses for Roth's step-up FWER controlling procedure.
@@ -98,10 +104,12 @@ Roth.rej <- function(p,p.set,alpha=0.05){
 #' The function for calculating the adjusted p-values based on original available p-values and all attaianble p-values.
 #'
 #' @usage
-#' Roth.p.adjust(p,p.set,digits)
+#' Roth.p.adjust(p, p.set, digits,  alpha, make.decision)
 #' @param p numeric vector of p-values (possibly with \code{\link[base]{NA}}s). Any other R is coerced by \code{\link[base]{as.numeric}}. Same as in \code{\link[stats]{p.adjust}}.
 #' @param p.set a list of numeric vectors, where each vector is the vector of all attainable p-values containing the available p-value for the corresponding hypothesis..
 #' @param digits minimal number of significant digits for the adjusted p-values, the default value is 4, see \code{\link[base]{print.default}}.
+#' @param alpha significant level used to compare with adjusted p-values to make decisions, the default value is 0.05.
+#' @param make.decision logical; if  \code{TRUE}, then the output include the decision rules compared adjusted p-values with significant level \eqn{\alpha}
 #' @return
 #' A numeric vector of the adjusted p-values (of the same length as \code{p}).
 #' @seealso \code{\link{MHoch.p.adjust}},  \code{\link[stats]{p.adjust}}.
@@ -117,7 +125,7 @@ Roth.rej <- function(p,p.set,alpha=0.05){
 #' Roth.p.adjust(p,p.set,digits=5)
 #' @export
 
-Roth.p.adjust <- function(p,p.set,digits=4){
+Roth.p.adjust <- function(p,p.set,digits=4, alpha = 0.05, make.decision = FALSE){
   m <- length(p)
   adjP <- c()
   for (i in 1:m){
@@ -137,6 +145,10 @@ Roth.p.adjust <- function(p,p.set,digits=4){
     }
     adjP[i] <- init.alpha[digits]+eps[digits]
   }
-  return(adjP)
+  if (make.decision==FALSE){
+    return(adjP)
+  } else{
+    return(list(method= "Roth-Hochberg", significant.level = alpha, Result = data.frame(raw.p = p, adjust.p=adjP, decision=ifelse(adjP<=alpha, "reject","accept"))))
+  }
 }
 

@@ -4,12 +4,16 @@
 \alias{MHoch.p.adjust}
 \title{The adjusted p-values for Modified Hochberg step-up FWER controlling procedure.}
 \usage{
-MHoch.p.adjust(p,p.set)
+MHoch.p.adjust(p, p.set, alpha, make.decision)
 }
 \arguments{
 \item{p}{numeric vector of p-values (possibly with \code{\link[base]{NA}}s). Any other R is coerced by \code{\link[base]{as.numeric}}. Same as in \code{\link[stats]{p.adjust}}.}
 
 \item{p.set}{a list of numeric vectors, where each vector is the vector of all attainable p-values containing the available p-value for the corresponding hypothesis..}
+
+\item{alpha}{significant level used to compare with adjusted p-values to make decisions, the default value is 0.05.}
+
+\item{make.decision}{logical; if  \code{TRUE}, then the output include the decision rules compared adjusted p-values with significant level \eqn{\alpha}}
 }
 \value{
 A numeric vector of the adjusted p-values (of the same length as \code{p}).
@@ -22,9 +26,6 @@ p <- c(pbinom(1,8,0.5),pbinom(1,5,0.75),pbinom(1,6,0.6))
 p.set <-list(pbinom(0:8,8,0.5),pbinom(0:5,5,0.75),pbinom(0:6,6,0.6))
 MHoch.p.adjust(p,p.set)
 }
-\author{
-Yalin Zhu
-}
 \references{
 Hochberg, Y. (1988).
  A sharper Bonferroni procedure for multiple tests of significance.
@@ -33,4 +34,6 @@ Hochberg, Y. (1988).
 \seealso{
 \code{\link{Roth.p.adjust}},  \code{\link[stats]{p.adjust}}.
 }
-
+\author{
+Yalin Zhu
+}
