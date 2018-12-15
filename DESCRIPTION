@@ -1,8 +1,7 @@
 Package: MHTdiscrete
 Type: Package
 Title: Multiple Hypotheses Testing for Discrete Data
-Version: 1.0.0
-Suggests: multcomp, FixSeqMTP
+Version: 1.0.1
 Author: Yalin Zhu, Wenge Guo
 Maintainer: Yalin Zhu <yalin.zhu@outlook.com>
 BugReports: https://github.com/allenzhuaz/MHTdiscrete/issues
@@ -16,7 +15,7 @@ Description: A comprehensive tool for almost all existing multiple testing
     for printing decision rules.
 License: GPL (>= 2)
 LazyData: TRUE
-NeedsCompilation: yes
-Packaged: 2017-11-23 07:15:28 UTC; yalinzhu
+NeedsCompilation: no
+Packaged: 2018-12-15 20:39:44 UTC; yalinzhu
 Repository: CRAN
-Date/Publication: 2017-11-23 07:29:32 UTC
+Date/Publication: 2018-12-15 21:00:02 UTC

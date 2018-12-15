@@ -16,6 +16,10 @@
 #'
 #' @author Yalin Zhu
 #' @references
+#' Zhu, Y., & Guo, W. (2017).
+#' Familywise error rate controlling procedures for discrete data
+#' \emph{arXiv preprint} arXiv:1711.08147.
+#'
 #' Tarone, R. E. (1990).
 #' A modified Bonferroni method for discrete data.
 #' \emph{Biometrics}, \strong{46}: 515-522.
